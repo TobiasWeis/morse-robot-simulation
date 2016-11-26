@@ -12,6 +12,7 @@ import sys
 import time
 from laser_visualizer import *
 from odo_visualizer import *
+from mapper import *
 
 try:
     from pymorse import Morse
@@ -21,6 +22,7 @@ except ImportError:
 
 lv = LaserVisualizer(180)
 ov = OdoVisualizer()
+mapper = Mapper()
 
 print("Use WASD to control the robot")
 
@@ -35,20 +37,22 @@ with Morse() as simu:
   w = -0.1 # angular velocity
 
   # send commands to robot
-  motion.publish({"v": v, "w": w})
-
+  #motion.publish({"v": v, "w": w})
 
   while True:
       #print("The robot is currently at: %s" % pose.get())
 
-      # get sensor readings
-      sickdata = sick.get_local_data().result()
-      lv.visualize(sickdata["range_list"])
-
+      # odometry (assume it has already been integrated)
       ododata = odo.get_local_data().result()
-      #print(ododata)
-      # visualize
+
+      # laserscanner
+      sickdata = sick.get_local_data().result()
+
       ov.add_values(ododata)
+
+      lv.visualize(sickdata["range_list"])
       ov.visualize_integrated()
 
-      #time.sleep(.000000001)
+      # mapper
+      mapper.integrate(ov.pos, lv.egopoints)
+      mapper.visualize()

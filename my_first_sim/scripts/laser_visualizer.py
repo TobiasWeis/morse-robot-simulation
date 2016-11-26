@@ -7,6 +7,8 @@ class LaserVisualizer():
         self.degs = degs
         self.steps = steps
         self.lrange = lrange
+        self.egopoints = []
+
         plt.ion()
 
     def visualize(self, points):
@@ -14,19 +16,18 @@ class LaserVisualizer():
         plt.cla()
         fig.clf()
         
-        mypoints = []
+        self.egopoints = []
         for i,p in enumerate(points):
-            # calculate the angle of the measurement
-            curr_deg = math.radians(-self.degs/2. + i*self.steps)
+            if p < 30.0:
+                # calculate the angle of the measurement
+                curr_deg = math.radians(-self.degs/2. + i*self.steps)
 
-            # rotate and display
-            x = 0*math.cos(curr_deg) - p*math.sin(curr_deg)
-            y = p*math.cos(curr_deg) + 0*math.sin(curr_deg)
-            mypoints.append([x,y])
+                # rotate and display
+                x = 0*math.cos(curr_deg) - p*math.sin(curr_deg)
+                y = p*math.cos(curr_deg) + 0*math.sin(curr_deg)
+                self.egopoints.append([x,y])
 
-        ps = np.array(mypoints)
-        print(ps)
-        print(ps.shape)
+        ps = np.array(self.egopoints)
         plt.scatter(ps[:,0], ps[:,1])
 
         plt.axes().set_aspect('equal', 'datalim')

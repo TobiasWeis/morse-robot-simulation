@@ -58,6 +58,5 @@ class OdoVisualizer():
                   color=rgba)
 
         plt.axes().set_aspect('equal', 'datalim')
-        #plt.title("x: %.2f, y: %.2f, a: %.2f" % (self.pos.x, self.pos.y, self.pos.a))
         plt.show()
         plt.pause(0.0000001)
