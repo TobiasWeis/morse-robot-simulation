@@ -16,7 +16,6 @@ from morse.sensors.laserscanner import *
 #robot = Morsy()
 robot = ATRV()
 
-
 # The list of the main methods to manipulate your components
 # is here: http://www.openrobots.org/morse/doc/stable/user/builder_overview.html
 robot.translate(1.0, 0.0, 0.0)
@@ -30,6 +29,11 @@ robot.rotate(0.0, 0.0, 3.5)
 # actuator.
 motion = MotionVW()
 robot.append(motion)
+
+odo = Odometry()
+odo.level('integrated')
+odo.add_interface('socket')
+robot.append(odo)
 
 # TOBI
 sick = Sick()
