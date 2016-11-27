@@ -13,6 +13,7 @@ import time
 from laser_visualizer import *
 from odo_visualizer import *
 from mapper import *
+from MyConfig import *
 
 try:
     from pymorse import Morse
@@ -20,9 +21,11 @@ except ImportError:
     print("you need first to install pymorse, the Python bindings for MORSE!")
     sys.exit(1)
 
+
+c = Config()
 lv = LaserVisualizer(180)
 ov = OdoVisualizer()
-mapper = Mapper()
+mapper = Mapper(c)
 
 print("Use WASD to control the robot")
 

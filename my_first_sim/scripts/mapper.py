@@ -3,8 +3,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 class Mapper():
-    def __init__(self):
+    def __init__(self, config):
         self.mappoints = []
+        self.laser_offset = config.laser_offset
         plt.ion()
 
     def integrate(self, pos, egopoints):
@@ -15,7 +16,7 @@ class Mapper():
 
         for c in egopoints:
             tx = c[0]  # compensate for laserscanner relative to robot center 
-            ty = c[1] + 0.6 
+            ty = c[1] + self.laser_offset[0]
             ta = pos.a
 
             x = tx * math.cos(ta) - ty * math.sin(ta)
