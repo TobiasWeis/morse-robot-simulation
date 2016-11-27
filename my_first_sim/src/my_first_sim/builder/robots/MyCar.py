@@ -37,15 +37,26 @@ class Mycar(GroundRobot):
         self.pose = Pose()
         self.append(self.pose)
 
+        # odometry, integrated (means we assume that our position has already been calculated)
         self.odo = Odometry()
         self.odo.level("integrated")
         self.odo.add_interface('socket')
         self.append(self.odo)
 
+        # laser scanner
         self.sick = Sick()
         self.sick.translate(self.c.laser_offset[0], self.c.laser_offset[1], self.c.laser_offset[2])
         self.sick.rotate(0., 0., 0.)
         self.sick.add_interface('socket')
         self.append(self.sick)
+
+        # camera
+        self.cam = VideoCamera()
+        self.cam.translate(self.c.cam_offset[0], self.c.cam_offset[1], self.c.cam_offset[2])
+        self.cam.rotate(0., 0., 0.)
+        self.cam.properties(cam_width=self.c.cam_width, cam_height=self.c.cam_height)
+        #self.cam.add_interface('socket')
+        self.cam.add_stream('socket')
+        self.append(self.cam)
 
 
