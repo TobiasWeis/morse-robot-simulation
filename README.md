@@ -6,6 +6,10 @@ To run it with morse:
     morse import my_first_sim
     morse run my_first_sim
 
+To connect with my client and visualize the sensor readings (slow b/c matplotlib):
+
+    ./my_first_sim/scripts/my_first_sim_client.py
+
 I adapted it to feature a laserscanner as well as client-code to read and visualize measurements:
 
 ![Simulation and LaserScanner visualization](second_sim.gif)
