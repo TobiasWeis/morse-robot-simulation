@@ -4,7 +4,6 @@
 
 Feel free to edit this template as you like!
 """
-
 from morse.builder import *
 from morse.sensors.laserscanner import *
 from my_first_sim.builder.robots import Mycar
